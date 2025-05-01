@@ -29,43 +29,53 @@
     <div class="efectivo">💵 + S/200 en efectivo</div>
   </section>
 
-  <section class="formulario">
-    <h2>📩 Reserva tu número</h2>
-    <form id="rifaForm">
-      <input type="text" id="nombre" placeholder="Tu nombre completo" required>
-      <input type="number" id="numero" placeholder="Número elegido (1-400)" min="1" max="400" required>
-      <input type="text" id="telefono" placeholder="Tu número de celular" required>
-      <button type="submit">Enviar por WhatsApp</button>
-    </form>
-  </section>
+ <section class="formulario">
+  <h2>📩 Reserva tu número</h2>
+  <form id="rifaForm">
+    <input type="text" id="nombre" placeholder="Tu nombre completo" required>
+    <input type="number" id="numero" placeholder="Número elegido (1-400)" min="1" max="400" required>
+    <input type="text" id="telefono" placeholder="Tu número de celular" required>
+    <button type="submit">Enviar inscripción</button>
+    <p id="estado" style="margin-top:10px;"></p>
+  </form>
+</section>
 
-  <section class="yape-section">
-    <h2>📱 También puedes pagar con Yape</h2>
-    <img src="yape_logo.jpeg" alt="Logo Yape">
-    <p class="yape-number">904 377 508</p>
-  </section>
+<script>
+  const form = document.getElementById("rifaForm");
+  const estado = document.getElementById("estado");
 
-  <footer>
-    <p>© 2025 - Rifa organizada por Daniel</p>
-  </footer>
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const data = {
+      nombre: form.nombre.value.trim(),
+      numero: form.numero.value.trim(),
+      telefono: form.telefono.value.trim()
+    };
 
-  <script src="script.js"></script>
-  <script>
-    const countdownDate = new Date("2025-05-25T00:00:00").getTime();
-    const x = setInterval(function() {
-      const now = new Date().getTime();
-      const distance = countdownDate - now;
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      document.getElementById("countdown").innerHTML =
-        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdown").innerHTML = "¡SORTEO FINALIZADO!";
+    estado.textContent = "Enviando...";
+    estado.style.color = "black";
+
+    fetch("https://script.google.com/macros/s/AKfycbwkeLC2LMw1Ss2d8sgeKIU0u42goWgIwPcHwUHGl83m0cGCxCrxLI0Iux6tAx_qzaxo/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
       }
-    }, 1000);
-  </script>
-</body>
-</html>
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.ok) {
+        estado.textContent = "✅ Número registrado con éxito";
+        estado.style.color = "green";
+        form.reset();
+      } else {
+        estado.textContent = "⚠️ " + response.error;
+        estado.style.color = "red";
+      }
+    })
+    .catch(() => {
+      estado.textContent = "❌ Error al enviar. Intenta más tarde.";
+      estado.style.color = "red";
+    });
+  });
+</script>
