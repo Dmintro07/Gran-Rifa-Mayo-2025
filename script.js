@@ -28,7 +28,7 @@ form.addEventListener("submit", async (e) => {
   const telefono = document.getElementById("telefono").value;
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbwtdpXf7bD94sug4iUx20ZySOzkTsJlFx2wnGnGcqa9R3OCCi4TYoYNztjR1-mJ-7OR/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbwkeLC2LMw1Ss2d8sgeKIU0u42goWgIwPcHwUHGl83m0cGCxCrxLI0Iux6tAx_qzaxo/exec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre, numero, telefono })
