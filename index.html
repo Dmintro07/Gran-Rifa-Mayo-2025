@@ -58,7 +58,6 @@
     </form>
     <div id="mensajeError" class="error"></div>
 
-    <!-- Mostrar números bloqueados -->
     <div class="bloqueados">
       <p><strong>Números ya reservados:</strong></p>
       <div id="listaBloqueados"></div>
@@ -67,12 +66,12 @@
 
   <section class="pago">
     <h2>💳 Participa en la Gran Rifa</h2>
-    <p>Haz tu pago de <strong>S/20</strong> al siguiente número:</p>
-    <div class="yape-box">
-      <img src="yape_logo.jpeg" alt="Logo Yape" />
-      <p class="yape-numero">904 377 508</p>
+    <p>Haz tu pago de <strong>S/20</strong> escaneando este código Yape:</p>
+    <div style="text-align: center;">
+      <img src="Yape.jpeg" alt="Código QR Yape" style="max-width: 200px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2);" />
+      <p class="yape-numero" style="margin-top: 10px; font-weight: bold;">904 377 508</p>
+      <p>📲 WhatsApp para confirmar: <strong><a href="https://wa.me/51904463970" target="_blank" style="color: #000;">904 463 970</a></strong></p>
     </div>
-    <p>📲 WhatsApp para confirmar: <strong>904 463 970</strong></p>
   </section>
 
   <footer>
@@ -103,10 +102,9 @@
     const mensajeError = document.getElementById("mensajeError");
     const listaBloqueados = document.getElementById("listaBloqueados");
 
-    // 👇 Lista editable de números bloqueados
-    const numerosBloqueados = [0, ,];
+    // Edita aquí para bloquear números
+    const numerosBloqueados = [2, 3, 7, 25, 100];
 
-    // Mostrar en pantalla los números bloqueados
     function mostrarBloqueados() {
       listaBloqueados.innerHTML = "";
       numerosBloqueados.forEach(num => {
@@ -120,9 +118,9 @@
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const nombre = document.getElementById("nombre").value;
+      const nombre = document.getElementById("nombre").value.trim();
       const numero = parseInt(document.getElementById("numero").value);
-      const telefono = document.getElementById("telefono").value;
+      const telefono = document.getElementById("telefono").value.trim();
 
       if (numerosBloqueados.includes(numero)) {
         mensajeError.textContent = "Ese número ya está reservado. Por favor elige otro.";
@@ -131,7 +129,6 @@
 
       const mensaje = `Hola, soy ${nombre}, quiero el número ${numero} para la rifa. Mi número es ${telefono}.`;
       const whatsapp = "51904463970";
-
       const url = `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`;
       window.open(url, "_blank");
 
@@ -141,4 +138,3 @@
   </script>
 </body>
 </html>
-
