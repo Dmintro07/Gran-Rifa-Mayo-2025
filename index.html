@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gran Rifa de Mayo 2025</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <h1>🎉 Gran Rifa de Mayo 2025 🎉</h1>
+    <p>Participa por solo <strong>S/20</strong> por número</p>
+    <p><strong>Sorteo: 25 de mayo</strong></p>
+  </header>
+
+  <section class="countdown">
+    <h2>⏳ Faltan:</h2>
+    <div id="timer">Cargando...</div>
+  </section>
+
+  <section class="premios">
+    <h2>🎁 Premios:</h2>
+    <div class="cards">
+      <div class="card"><img src="a.jpeg"/><p>Caja de cervezas Pilsen</p></div>
+      <div class="card"><img src="b.jpeg"/><p>Cocina Indurama</p></div>
+      <div class="card"><img src="c.jpeg"/><p>Smartwatch Xiaomi</p></div>
+      <div class="card"><img src="d.jpeg"/><p>Xiaomi Note 14 Pro</p></div>
+    </div>
+    <div class="dinero">💵 + S/200 en efectivo</div>
+  </section>
+
+  <section class="formulario">
+    <h2>📩 Reserva tu número</h2>
+    <form id="formulario">
+      <input type="text" id="nombre" placeholder="Nombre completo" required />
+      <input type="number" id="numero" placeholder="Número elegido (1-400)" min="1" max="400" required />
+      <input type="tel" id="telefono" placeholder="Tu número de celular" required />
+      <button type="submit">Enviar inscripción</button>
+    </form>
+    <div id="mensajeError" class="error"></div>
+  </section>
+
+  <section class="pago">
+    <h2>💳 Participa en la Gran Rifa</h2>
+    <p>Haz tu pago de <strong>S/20</strong> al siguiente número:</p>
+    <div class="yape-box">
+      <img src="yape_logo.jpeg" alt="Logo Yape" />
+      <p class="yape-numero">904 377 508</p>
+    </div>
+    <p>📲 WhatsApp para confirmar: <strong>904 463 970</strong></p>
+  </section>
+
+  <footer>
+    <p>© 2025 - Rifa organizada por Daniel</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
