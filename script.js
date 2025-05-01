@@ -1,4 +1,3 @@
-
 const form = document.getElementById("formulario");
 const mensajeError = document.getElementById("mensajeError");
 const timer = document.getElementById("timer");
@@ -35,13 +34,15 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify({ nombre, numero, telefono })
     });
     const result = await response.json();
-    if (result.success) {
+
+    if (result.ok) {
       alert("¡Número reservado con éxito!");
       form.reset();
     } else {
-      mensajeError.textContent = result.message || "Error. Intenta con otro número.";
+      mensajeError.textContent = result.error || "Error. Intenta con otro número.";
     }
   } catch (error) {
     mensajeError.textContent = "Error al enviar. Intenta más tarde.";
   }
 });
+
