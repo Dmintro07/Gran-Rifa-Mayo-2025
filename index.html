@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gran Rifa de Mayo 2025</title>
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    .bloqueados {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .bloqueados span {
+      display: inline-block;
+      background: #ffdddd;
+      color: #d00;
+      border: 1px solid #d00;
+      padding: 5px 10px;
+      margin: 3px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -38,6 +57,12 @@
       <button type="submit">Enviar inscripción</button>
     </form>
     <div id="mensajeError" class="error"></div>
+
+    <!-- Mostrar números bloqueados -->
+    <div class="bloqueados">
+      <p><strong>Números ya reservados:</strong></p>
+      <div id="listaBloqueados"></div>
+    </div>
   </section>
 
   <section class="pago">
@@ -75,19 +100,45 @@
     updateCountdown();
 
     const form = document.getElementById("formulario");
+    const mensajeError = document.getElementById("mensajeError");
+    const listaBloqueados = document.getElementById("listaBloqueados");
+
+    // 👇 Lista editable de números bloqueados
+    const numerosBloqueados = [2, 3, 7, 25, 100];
+
+    // Mostrar en pantalla los números bloqueados
+    function mostrarBloqueados() {
+      listaBloqueados.innerHTML = "";
+      numerosBloqueados.forEach(num => {
+        const span = document.createElement("span");
+        span.textContent = num;
+        listaBloqueados.appendChild(span);
+      });
+    }
+    mostrarBloqueados();
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
       const nombre = document.getElementById("nombre").value;
-      const numero = document.getElementById("numero").value;
+      const numero = parseInt(document.getElementById("numero").value);
       const telefono = document.getElementById("telefono").value;
 
+      if (numerosBloqueados.includes(numero)) {
+        mensajeError.textContent = "Ese número ya está reservado. Por favor elige otro.";
+        return;
+      }
+
       const mensaje = `Hola, soy ${nombre}, quiero el número ${numero} para la rifa. Mi número es ${telefono}.`;
-      const whatsapp = "51904463970"; // Código de país + número
+      const whatsapp = "51904463970";
 
       const url = `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`;
       window.open(url, "_blank");
+
+      form.reset();
+      mensajeError.textContent = "";
     });
   </script>
 </body>
 </html>
+
